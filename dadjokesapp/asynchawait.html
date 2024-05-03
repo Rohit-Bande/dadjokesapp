@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            width: 100%;
+            height: 100vh;
+            background-color: rgb(77, 65, 65);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container{
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        section{
+            margin-bottom: 10px;
+        }
+
+        button{
+            background-color: aquamarine;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-transform: capitalize;
+            border: none;
+        }
+
+        button:hover{
+            background-color: rgb(14, 100, 72);
+            color: #fff;
+            transition: .3s ease-in;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wecome to dad jokes!</h1>
+        <section class="api_body"></section>
+        <button id="fetchJoke">Get another joke</button>
+    </div>
+
+    <script>
+          const apiBody = document.querySelector(".api_body");
+
+         const apiUrl = "https://icanhazdadjoke.com/";
+
+         async function fetchData(){
+            try{
+            const res = await fetch(apiUrl, {
+                headers : {
+                    Accept : "application/json"
+                }
+            })
+            const data = await res.json();
+            console.log(data.joke);
+            apiBody.innerHTML = data.joke;
+        }catch(error){
+            apiBody.innerHTML = error
+           console.log(error);
+        }
+         }
+
+         fetchData();
+
+         document.getElementById('fetchJoke').addEventListener('click', fetchData)
+    </script>
+</body>
+</html>
